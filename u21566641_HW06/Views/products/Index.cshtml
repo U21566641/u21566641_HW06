@@ -6,8 +6,13 @@
 @using PagedList.Mvc;
 @using PagedList;
 
-<h2>Index</h2>
+<h2>Products</h2>
 
+@using(Html.BeginForm("Index", "products", FormMethod.Get))
+            {
+                <input type="text" name="toSearch" placeholder="Enter product name..."/>
+                <input type="submit" name="toSearch" />
+            }
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

@@ -18,10 +18,10 @@ namespace u21566641_HW06.Controllers
         private BikeStoresEntities db = new BikeStoresEntities();
 
         // GET: products
-        public ActionResult Index(int? i)
+        public ActionResult Index(string toSearch, int? i)
         {
             var products = db.products.Include(p => p.brand).Include(p => p.category);
-            return View(products.ToList().ToPagedList(i ?? 1, 10));
+            return View(products.Where(a => a.product_name.Contains(toSearch) || toSearch==null).ToList().ToPagedList(i ?? 1, 10));
         }
 
         // GET: products/Details/5

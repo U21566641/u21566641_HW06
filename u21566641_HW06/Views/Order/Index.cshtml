@@ -1,0 +1,58 @@
+﻿@model IEnumerable<u21566641_HW06.Models.order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+@foreach(var item in Model)
+{
+    decimal counter = 0;
+                <div>
+                    <h3>Order @item.order_id - @item.order_date.ToShortDateString()</h3>
+                    <div class="body-content">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Product Name
+                                </th>
+                                <th>
+                                    List Price
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                            @foreach (var orderItem in item.order_items)
+                            {
+                                counter = counter + orderItem.quantity * orderItem.list_price;
+                                <tr>
+                                    <td>
+                                        @orderItem.product.product_name
+                                    </td>
+                                    <td>
+                                        @orderItem.list_price
+                                    </td>
+                                    <td>
+                                        @orderItem.quantity
+                                    </td>
+                                    <td>
+                                        @(orderItem.quantity * orderItem.list_price )
+                                    </td>
+                                </tr>
+                            }
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>Grand total: @counter</td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+            }
+

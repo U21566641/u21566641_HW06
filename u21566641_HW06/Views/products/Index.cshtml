@@ -1,8 +1,10 @@
-﻿@model IEnumerable<u21566641_HW06.Models.product>
+﻿@model IPagedList<u21566641_HW06.Models.product>
 
 @{
     ViewBag.Title = "Index";
 }
+@using PagedList.Mvc;
+@using PagedList;
 
 <h2>Index</h2>
 
@@ -12,19 +14,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.product_name)
+            @Html.DisplayNameFor(model => model.First().product_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.model_year)
+            @Html.DisplayNameFor(model => model.First().model_year)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.list_price)
+            @Html.DisplayNameFor(model => model.First().list_price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.brand.brand_name)
+            @Html.DisplayNameFor(model => model.First().brand.brand_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.category.category_name)
+            @Html.DisplayNameFor(model => model.First().category.category_name)
         </th>
         <th></th>
     </tr>
@@ -55,3 +57,5 @@
 }
 
 </table>
+
+@Html.PagedListPager(Model,i => Url.Action("Index", "products"))

@@ -1,0 +1,80 @@
+﻿@model u21566641_HW06.Models.product
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_name)
+        </dd>
+
+        <dt>
+           Year
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model_year)
+        </dd>
+
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.list_price)
+        </dd>
+
+        <dt>
+            Brand Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.brand.brand_name)
+        </dd>
+
+        <dt>
+            Category Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.category_name)
+        </dd>
+
+    </dl>
+    
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Store
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+    @foreach (var item in Model.stocks)
+    {
+        <tr>
+            <td>
+                @item.store.store_name
+            </td>
+            @if (item.quantity == 0)
+            {
+                <td>
+                    Out of stock
+                </td>
+            }
+            else
+            {
+                <td>
+                    @item.quantity
+                </td>
+            }
+        </tr>
+    }
+</table>

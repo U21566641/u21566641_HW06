@@ -1,0 +1,150 @@
+﻿@model IPagedList<u21566641_HW06.Models.product>
+
+@{
+    ViewBag.Title = "Index";
+}
+@using PagedList.Mvc;
+@using PagedList;
+
+<h2>Products</h2>
+
+@using (Html.BeginForm("Index", "products", FormMethod.Get))
+{
+    <input type="text" name="toSearch" placeholder="Enter product name..." />
+    <input type="submit" name="toSearch" class="btn btn-info" />
+    <button id="createProduct" type="button" class="btn btn-primary">Create</button>
+
+}
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Brand
+        </th>
+        <th>
+            Category
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.model_year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.list_price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.brand.brand_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.category_name)
+            </td>
+            <td>
+                <input class="idVal" type="hidden" value="@item.product_id" />
+                <button id="editProduct" type="button" class="btn btn-primary">Edit</button>
+                <input class="idVal" type="hidden" value="@item.product_id" />
+                <button id="detailsProduct" type="button" class="btn btn-info">Details</button>
+                <input class="idVal" type="hidden" value="@item.product_id" />
+                <button id="deleteProduct" type="button" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" role="dialog" id="createModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="createModalbody" class="modal-body">
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#createProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $.ajax({
+                url: '/products/Create',
+                type: 'GET',
+                success: function (data) {
+                    $('#createModalbody').html(data);
+                    $('#createModal').modal('show');
+                },
+                error: function () {
+                    alert("There is some problem in the service!")
+                }
+            });
+        });
+
+        $(document).on('click', '#editProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            var selectedId = $(this).parent().find(".idVal").val();
+
+
+             $.get('@Url.Action("Edit", "products")', { id: selectedId }, function (partialView) {
+                 $("#createModalbody").html(partialView);
+                 $('#createModal').modal('show');
+             });
+
+
+        });
+
+        $(document).on('click', '#detailsProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            var selectedId = $(this).parent().find(".idVal").val();
+
+            $.get('@Url.Action("Details", "products")', { id: selectedId }, function (partialView) {
+                 $("#createModalbody").html(partialView);
+                 $('#createModal').modal('show');
+             });
+        });
+
+        $(document).on('click', '#deleteProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+             var selectedId = $(this).parent().find(".idVal").val();
+
+            $.get('@Url.Action("Delete", "products")', { id: selectedId }, function (partialView) {
+                 $("#createModalbody").html(partialView);
+                 $('#createModal').modal('show');
+             });
+        });
+    });
+</script>
+
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "products", new {i, toSearch=Request.QueryString["toSearch"] }))

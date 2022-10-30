@@ -113,7 +113,7 @@ namespace u21566641_HW06.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return PartialView(product);
         }
 
         // POST: products/Delete/5

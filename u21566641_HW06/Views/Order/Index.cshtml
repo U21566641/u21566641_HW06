@@ -64,5 +64,4 @@
     </div>
 }
 
-@Html.PagedListPager(Model, i => Url.Action("Index", "Order"))
-
+@Html.PagedListPager(Model, i => Url.Action("Index", "Order", new { i, toSearch = Request.QueryString["toSearch"] }))

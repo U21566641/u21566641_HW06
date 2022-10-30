@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.category.category_name)
             </td>
             <td>
-                @*<button id="editProduct" type="button" class="btn btn-primary">Edit</button>*@
+                <button id="editProduct" type="button" class="btn btn-primary">Edit</button>
                 @Html.ActionLink("Details", "Details", new { id = item.product_id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.product_id })
             </td>
@@ -112,10 +112,10 @@
                 url: '/products/Edit',
                 type: 'GET',
                 success: function (data) {
-                    $('#editModalbody').html(data);
-                    $('#editModal').modal('show');
+                    $('#createModalbody').html(data);
+                    $('#createModal').modal('show');
                 },
-                error: function (e) {
+                error: function () {
                     alert("There is some problem in the service!")
                 }
             });
@@ -158,4 +158,4 @@
 </script>
 
 
-@Html.PagedListPager(Model, i => Url.Action("Index", "products"))
+@Html.PagedListPager(Model, i => Url.Action("Index", "products", new {i, toSearch=Request.QueryString["toSearch"] }))

@@ -17,11 +17,10 @@ namespace u21566641_HW06.Controllers
     {
         private BikeStoresEntities db = new BikeStoresEntities();
         // GET: Order
-        public ActionResult Index()
+        public ActionResult Index(DateTime? toSearch, int? i)
         {
             var orders = db.orders.Include(o => o.order_items);
-
-            return View(orders.ToList());
+            return View(orders.Where(a => a.order_date ==  toSearch|| toSearch == null).ToList().ToPagedList(i ?? 1, 10));
         }
     }
 }

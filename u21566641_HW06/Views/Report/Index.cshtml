@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h2>Report</h2>
+
+<canvas id="barChart" width="400" height="100"></canvas>
+
+<script>
+    var c = document.getElementById("barChart");
+    var ctx = c.getContext("2d");
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                label: "Number of Mountain Bikes Sold",
+                data: [163, 152, 200, 211, 139, 127, 122, 148, 160, 125, 118, 90],
+                backgroundColor: [
+                    'rgba(0, 77, 151, 0.8)',
+                    'rgba(118, 168, 112, 0.8)',
+                    'rgba(129, 85, 109, 0.8)',
+                    'rgba(173, 160, 36, 0.8)',
+                    'rgba(173, 160, 36, 0.8)',
+                    'rgba(80, 7, 151, 0.8)',
+                    'rgba(7, 151, 128, 0.8)'
+                ],
+                borderWidth: 1
+               
+            }
+
+            ]
+        }
+    });
+</script>
+

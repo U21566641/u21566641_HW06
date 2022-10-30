@@ -3,7 +3,6 @@
 <h2>Details</h2>
 
 <div>
-    <h4>product</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -47,4 +46,34 @@
         </dd>
 
     </dl>
+    <table>
+        <tr>
+            <th>
+                Store
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+        @foreach(var item in Model.stocks)
+            {
+                <tr>
+                    <td>
+                        @item.store.store_name
+                    </td>
+                    @if(item.quantity == 0)
+                {
+                    <td>
+                        Out of stock
+                    </td>
+                    }
+                    else
+                {
+                    <td>
+                        @item.quantity
+                    </td>
+                }
+                </tr>
+            }
+    </table>
 </div>

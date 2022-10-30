@@ -57,8 +57,8 @@
             <td>
                 <input class="idVal" type="hidden" value="@item.product_id" />
                 <button id="editProduct" type="button" class="btn btn-primary">Edit</button>
-
-                @Html.ActionLink("Details", "Details", new { id = item.product_id }) |
+                <input class="idVal" type="hidden" value="@item.product_id" />
+                <button id="detailsProduct" type="button" class="btn btn-info">Details</button>
                 @Html.ActionLink("Delete", "Delete", new { id = item.product_id })
             </td>
         </tr>
@@ -117,24 +117,18 @@
                  $('#createModal').modal('show');
              });
 
-            
+
         });
 
-        $(document).on('click', '#createProduct', function (event) {
+        $(document).on('click', '#detailsProduct', function (event) {
             event.preventDefault();
             event.stopImmediatePropagation();
+            var selectedId = $(this).parent().find(".idVal").val();
 
-            $.ajax({
-                url: '/products/Create',
-                type: 'GET',
-                success: function (data) {
-                    $('#createModalbody').html(data);
-                    $('#createModal').modal('show');
-                },
-                error: function () {
-                    alert("There is some problem in the service!")
-                }
-            });
+            $.get('@Url.Action("Details", "products")', { id: selectedId }, function (partialView) {
+                 $("#createModalbody").html(partialView);
+                 $('#createModal').modal('show');
+             });
         });
 
         $(document).on('click', '#createProduct', function (event) {

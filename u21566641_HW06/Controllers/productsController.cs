@@ -44,7 +44,7 @@ namespace u21566641_HW06.Controllers
         {
             ViewBag.brand_id = new SelectList(db.brands, "brand_id", "brand_name");
             ViewBag.category_id = new SelectList(db.categories, "category_id", "category_name");
-            return View();
+            return PartialView();
         }
 
         // POST: products/Create

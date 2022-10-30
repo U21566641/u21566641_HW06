@@ -8,14 +8,14 @@
 
 <h2>Products</h2>
 
-@using(Html.BeginForm("Index", "products", FormMethod.Get))
-            {
-                <input type="text" name="toSearch" placeholder="Enter product name..."/>
-                <input type="submit" name="toSearch" />
-            }
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Index", "products", FormMethod.Get))
+{
+    <input type="text" name="toSearch" placeholder="Enter product name..." />
+    <input type="submit" name="toSearch" class="btn btn-info" />
+    <button id="createProduct" type="button" class="btn btn-primary">Create</button>
+
+}
+<br />
 <table class="table">
     <tr>
         <th>
@@ -36,31 +36,126 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.product_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.model_year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.list_price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.brand.brand_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.category.category_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.product_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.product_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.product_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.model_year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.list_price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.brand.brand_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.category_name)
+            </td>
+            <td>
+                @*<button id="editProduct" type="button" class="btn btn-primary">Edit</button>*@
+                @Html.ActionLink("Details", "Details", new { id = item.product_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.product_id })
+            </td>
+        </tr>
+    }
 
 </table>
 
-@Html.PagedListPager(Model,i => Url.Action("Index", "products"))
+<div class="modal fade" role="dialog" id="createModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="createModalbody" class="modal-body">
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#createProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $.ajax({
+                url: '/products/Create',
+                type: 'GET',
+                success: function (data) {
+                    $('#createModalbody').html(data);
+                    $('#createModal').modal('show');
+                },
+                error: function () {
+                    alert("There is some problem in the service!")
+                }
+            });
+        });
+
+        $(document).on('click', '#editProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $.ajax({
+                url: '/products/Edit',
+                type: 'GET',
+                success: function (data) {
+                    $('#editModalbody').html(data);
+                    $('#editModal').modal('show');
+                },
+                error: function (e) {
+                    alert("There is some problem in the service!")
+                }
+            });
+        });
+
+        $(document).on('click', '#createProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $.ajax({
+                url: '/products/Create',
+                type: 'GET',
+                success: function (data) {
+                    $('#createModalbody').html(data);
+                    $('#createModal').modal('show');
+                },
+                error: function () {
+                    alert("There is some problem in the service!")
+                }
+            });
+        });
+
+        $(document).on('click', '#createProduct', function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            $.ajax({
+                url: '/products/Create',
+                type: 'GET',
+                success: function (data) {
+                    $('#createModalbody').html(data);
+                    $('#createModal').modal('show');
+                },
+                error: function () {
+                    alert("There is some problem in the service!")
+                }
+            });
+        });
+    });
+</script>
+
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "products"))

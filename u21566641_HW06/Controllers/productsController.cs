@@ -36,7 +36,7 @@ namespace u21566641_HW06.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return PartialView("Details", product);
         }
 
         // GET: products/Create
@@ -80,7 +80,7 @@ namespace u21566641_HW06.Controllers
             }
             ViewBag.brand_id = new SelectList(db.brands, "brand_id", "brand_name", product.brand_id);
             ViewBag.category_id = new SelectList(db.categories, "category_id", "category_name", product.category_id);
-            return View(product);
+            return PartialView(product);
         }
 
         // POST: products/Edit/5

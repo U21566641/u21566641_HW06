@@ -6,7 +6,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.product_name)
+            Name
         </dt>
 
         <dd>
@@ -14,7 +14,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.model_year)
+           Year
         </dt>
 
         <dd>
@@ -22,7 +22,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.list_price)
+            Price
         </dt>
 
         <dd>
@@ -30,7 +30,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.brand.brand_name)
+            Brand Name
         </dt>
 
         <dd>
@@ -38,7 +38,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.category.category_name)
+            Category Name
         </dt>
 
         <dd>
@@ -46,34 +46,35 @@
         </dd>
 
     </dl>
-    <table>
-        <tr>
-            <th>
-                Store
-            </th>
-            <th>
-                Quantity
-            </th>
-        </tr>
-        @foreach(var item in Model.stocks)
-            {
-                <tr>
-                    <td>
-                        @item.store.store_name
-                    </td>
-                    @if(item.quantity == 0)
-                {
-                    <td>
-                        Out of stock
-                    </td>
-                    }
-                    else
-                {
-                    <td>
-                        @item.quantity
-                    </td>
-                }
-                </tr>
-            }
-    </table>
+    
 </div>
+<table class="table">
+    <tr>
+        <th>
+            Store
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+    @foreach (var item in Model.stocks)
+    {
+        <tr>
+            <td>
+                @item.store.store_name
+            </td>
+            @if (item.quantity == 0)
+            {
+                <td>
+                    Out of stock
+                </td>
+            }
+            else
+            {
+                <td>
+                    @item.quantity
+                </td>
+            }
+        </tr>
+    }
+</table>
